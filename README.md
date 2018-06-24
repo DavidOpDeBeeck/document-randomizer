@@ -1,3 +1,17 @@
+## Gradle
+
+```groovy
+repositories {
+    maven {
+        url  "https://dl.bintray.com/davidopdebeeck/open-source" 
+    }
+}
+
+dependencies {
+    compile 'be.davidopdebeeck:document-randomizer:1.0'
+}
+```
+
 ## Purpose
 
 The purpose of this library is to provide an easy way to "randomize" fields in a XML or JSON document. A perfect use case would be the anonymization of production data used in development environments.
@@ -25,9 +39,9 @@ Specifications define how the new element values are generated. The following sp
 - __RandomStringElementValueProviderSpecification__
 - __FileValuesElementValueProviderSpecification__
 
-#### Example
+## Example
 
-##### Input
+#### Input
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -36,7 +50,7 @@ Specifications define how the new element values are generated. The following sp
 </root>
 ```
 
-##### Java code
+#### Java code
 
 ```java
 class Example {
@@ -57,7 +71,7 @@ class Example {
 }
 ```
 
-##### Output
+#### Output
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
