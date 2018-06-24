@@ -1,7 +1,19 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
+}
+
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply plugin: 'java'
+apply plugin: 'java-library'
+
 group 'be.davidopdebeeck'
 version '1.0'
-
-apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
@@ -17,4 +29,27 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.10.0'
+}
+
+bintray {
+    user = 'davidopdebeeck'
+    key = 'api-key'
+    publications = ['MyPublication']
+    pkg {
+        repo = 'open-source'
+        name = 'document-randomizer'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/DavidOpDeBeeck/document-randomizer.git'
+    }
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId group
+            artifactId 'document-randomizer'
+            version version
+        }
+    }
 }
