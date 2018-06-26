@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class XmlRandomizerFileMappingTest {
 
-    private Randomizer<XmlDocument> randomizer;
+    private Randomizer randomizer;
 
     @Before
     public void setUp() throws URISyntaxException {
@@ -31,13 +31,13 @@ public class XmlRandomizerFileMappingTest {
 
     @Test
     public void randomize_withStringInputSource() {
-        XmlDocument document = randomizer.randomize(() -> Flowable.just(() -> "<name>David</name>"))
+        String document = randomizer.randomize(() -> Flowable.just(() -> "<name>David</name>"))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
     }
 
-    private void assertThatDocumentIsRandomized(XmlDocument document) {
-        assertThat(document.toString()).containsSubsequence("<name>test</name>");
+    private void assertThatDocumentIsRandomized(String document) {
+        assertThat(document).containsSubsequence("<name>test</name>");
     }
 }

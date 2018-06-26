@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonRandomizerFileMappingTest {
 
-    private Randomizer<JsonDocument> randomizer;
+    private Randomizer randomizer;
 
     @Before
     public void setUp() throws URISyntaxException {
@@ -31,13 +31,13 @@ public class JsonRandomizerFileMappingTest {
 
     @Test
     public void randomize_withStringInputSource() {
-        JsonDocument document = randomizer.randomize(() -> Flowable.just(() -> "{ \"name\": \"David\" }"))
+        String document = randomizer.randomize(() -> Flowable.just(() -> "{ \"name\": \"David\" }"))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
     }
 
-    private void assertThatDocumentIsRandomized(JsonDocument document) {
-        assertThat(document.toString()).containsSubsequence("{\"name\":\"test\"}");
+    private void assertThatDocumentIsRandomized(String document) {
+        assertThat(document).containsSubsequence("{\"name\":\"test\"}");
     }
 }

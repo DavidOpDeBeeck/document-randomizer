@@ -10,7 +10,7 @@ import be.davidopdebeeck.document.randomizer.document.DocumentProcessingService;
 import be.davidopdebeeck.document.randomizer.input.InputSource;
 import io.reactivex.Flowable;
 
-public class SimpleRandomizer<D extends Document> implements Randomizer<D> {
+public class SimpleRandomizer<D extends Document> implements Randomizer {
 
     private final DocumentFactory<D> documentFactory;
     private final DocumentProcessingService<D> documentProcessingService;
@@ -22,9 +22,10 @@ public class SimpleRandomizer<D extends Document> implements Randomizer<D> {
     }
 
     @Override
-    public Flowable<D> randomize(InputSource<?> inputSource) {
+    public Flowable<String> randomize(InputSource<?> inputSource) {
         return documentFactory.createDocument(inputSource)
-                .map(this::processDocument);
+                .map(this::processDocument)
+                .map(Document::toString);
     }
 
     private D processDocument(D document) {

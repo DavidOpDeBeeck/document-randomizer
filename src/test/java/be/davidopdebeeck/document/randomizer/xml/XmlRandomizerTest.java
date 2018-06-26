@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class XmlRandomizerTest {
 
-    private Randomizer<XmlDocument> randomizer;
+    private Randomizer randomizer;
 
     @Before
     public void setUp() {
@@ -37,7 +37,7 @@ public class XmlRandomizerTest {
 
     @Test
     public void randomize_withStringInputSource() {
-        XmlDocument document = randomizer.randomize(() -> Flowable.just(() -> "<name>David</name>"))
+        String document = randomizer.randomize(() -> Flowable.just(() -> "<name>David</name>"))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
@@ -50,7 +50,7 @@ public class XmlRandomizerTest {
                 () -> "<name>David</name>",
                 () -> "<name>David</name>");
 
-        List<XmlDocument> documents = randomizer.randomize(() -> Flowable.fromIterable(inputs))
+        List<String> documents = randomizer.randomize(() -> Flowable.fromIterable(inputs))
                 .toList().blockingGet();
 
         assertThatDocumentIsRandomized(documents.get(0));
@@ -63,7 +63,7 @@ public class XmlRandomizerTest {
         IterableInputSource inputSource = IterableInputSource.fromIterable(asList(
                 "<name>David</name>", "<name>David</name>", "<name>David</name>"));
 
-        List<XmlDocument> documents = randomizer.randomize(inputSource)
+        List<String> documents = randomizer.randomize(inputSource)
                 .toList().blockingGet();
 
         assertThatDocumentIsRandomized(documents.get(0));
@@ -79,7 +79,7 @@ public class XmlRandomizerTest {
                 new StringWrapper("<name>David</name>")),
                 StringWrapper::getContent);
 
-        List<XmlDocument> documents = randomizer.randomize(inputSource)
+        List<String> documents = randomizer.randomize(inputSource)
                 .toList().blockingGet();
 
         assertThatDocumentIsRandomized(documents.get(0));
@@ -91,7 +91,7 @@ public class XmlRandomizerTest {
     public void randomize_withDirectoryInputSource_withExtension() {
         URL xmlFilesDirectory = ClassLoader.getSystemResource("xml-files");
 
-        XmlDocument document = randomizer.randomize(new DirectoryInputSource(xmlFilesDirectory.getPath(), "xml"))
+        String document = randomizer.randomize(new DirectoryInputSource(xmlFilesDirectory.getPath(), "xml"))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
@@ -101,7 +101,7 @@ public class XmlRandomizerTest {
     public void randomize_withDirectoryInputSource_withoutExtension() {
         URL xmlFilesDirectory = ClassLoader.getSystemResource("xml-files");
 
-        XmlDocument document = randomizer.randomize(new DirectoryInputSource(xmlFilesDirectory.getPath()))
+        String document = randomizer.randomize(new DirectoryInputSource(xmlFilesDirectory.getPath()))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
@@ -112,7 +112,7 @@ public class XmlRandomizerTest {
         URL xmlFile1 = ClassLoader.getSystemResource("xml-files/test1.xml");
         URL xmlFile2 = ClassLoader.getSystemResource("xml-files/test2.xml");
 
-        List<XmlDocument> documents = randomizer.randomize(
+        List<String> documents = randomizer.randomize(
                 new CompositeInputSource<>(
                         new FileInputSource(new File(xmlFile1.toURI())),
                         new FileInputSource(new File(xmlFile2.toURI()))))
@@ -122,7 +122,7 @@ public class XmlRandomizerTest {
         assertThatDocumentIsRandomized(documents.get(1));
     }
 
-    private void assertThatDocumentIsRandomized(XmlDocument document) {
-        assertThat(document.toString()).containsSubsequence("<name>test</name>");
+    private void assertThatDocumentIsRandomized(String document) {
+        assertThat(document).containsSubsequence("<name>test</name>");
     }
 }

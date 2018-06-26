@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonRandomizerTest {
 
-    private Randomizer<JsonDocument> randomizer;
+    private Randomizer randomizer;
 
     @Before
     public void setUp() {
@@ -37,7 +37,7 @@ public class JsonRandomizerTest {
 
     @Test
     public void randomize_withStringInputSource() {
-        JsonDocument document = randomizer.randomize(() -> Flowable.just(() -> "{ \"name\": \"David\" }"))
+        String document = randomizer.randomize(() -> Flowable.just(() -> "{ \"name\": \"David\" }"))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
@@ -50,7 +50,7 @@ public class JsonRandomizerTest {
                 () -> "{ \"name\": \"David\" }",
                 () -> "{ \"name\": \"David\" }");
 
-        List<JsonDocument> documents = randomizer.randomize(() -> Flowable.fromIterable(inputs))
+        List<String> documents = randomizer.randomize(() -> Flowable.fromIterable(inputs))
                 .toList().blockingGet();
 
         assertThatDocumentIsRandomized(documents.get(0));
@@ -63,7 +63,7 @@ public class JsonRandomizerTest {
         IterableInputSource inputSource = IterableInputSource.fromIterable(asList(
                 "{ \"name\": \"David\" }", "{ \"name\": \"David\" }", "{ \"name\": \"David\" }"));
 
-        List<JsonDocument> documents = randomizer.randomize(inputSource)
+        List<String> documents = randomizer.randomize(inputSource)
                 .toList().blockingGet();
 
         assertThatDocumentIsRandomized(documents.get(0));
@@ -79,7 +79,7 @@ public class JsonRandomizerTest {
                 new StringWrapper("{ \"name\": \"David\" }")),
                 StringWrapper::getContent);
 
-        List<JsonDocument> documents = randomizer.randomize(inputSource)
+        List<String> documents = randomizer.randomize(inputSource)
                 .toList().blockingGet();
 
         assertThatDocumentIsRandomized(documents.get(0));
@@ -91,7 +91,7 @@ public class JsonRandomizerTest {
     public void randomize_withDirectoryInputSource_withExtension() {
         URL jsonFilesDirectory = ClassLoader.getSystemResource("json-files");
 
-        JsonDocument document = randomizer.randomize(new DirectoryInputSource(jsonFilesDirectory.getPath(), "json"))
+        String document = randomizer.randomize(new DirectoryInputSource(jsonFilesDirectory.getPath(), "json"))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
@@ -101,7 +101,7 @@ public class JsonRandomizerTest {
     public void randomize_withDirectoryInputSource_withoutExtension() {
         URL jsonFilesDirectory = ClassLoader.getSystemResource("json-files");
 
-        JsonDocument document = randomizer.randomize(new DirectoryInputSource(jsonFilesDirectory.getPath()))
+        String document = randomizer.randomize(new DirectoryInputSource(jsonFilesDirectory.getPath()))
                 .blockingFirst();
 
         assertThatDocumentIsRandomized(document);
@@ -112,7 +112,7 @@ public class JsonRandomizerTest {
         URL jsonFile1 = ClassLoader.getSystemResource("json-files/test1.json");
         URL jsonFile2 = ClassLoader.getSystemResource("json-files/test2.json");
 
-        List<JsonDocument> documents = randomizer.randomize(
+        List<String> documents = randomizer.randomize(
                 new CompositeInputSource<>(
                         new FileInputSource(new File(jsonFile1.toURI())),
                         new FileInputSource(new File(jsonFile2.toURI()))))
@@ -122,7 +122,7 @@ public class JsonRandomizerTest {
         assertThatDocumentIsRandomized(documents.get(1));
     }
 
-    private void assertThatDocumentIsRandomized(JsonDocument document) {
-        assertThat(document.toString()).containsSubsequence("{\"name\":\"test\"}");
+    private void assertThatDocumentIsRandomized(String document) {
+        assertThat(document).containsSubsequence("{\"name\":\"test\"}");
     }
 }
