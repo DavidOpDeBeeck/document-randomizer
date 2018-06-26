@@ -9,11 +9,11 @@ public class RandomValueElementValueProvider implements ElementValueProvider {
     private static final String LETTERS = "abcdefghijklmnopqrstuvwxyz";
     private static final String NUMBERS = "0123456789";
 
-    public static RandomValueElementValueProvider randomString(int length) {
+    public static ElementValueProvider randomString(int length) {
         return new RandomValueElementValueProvider(length, LETTERS.toCharArray());
     }
 
-    public static RandomValueElementValueProvider randomNumber(int length) {
+    public static ElementValueProvider randomNumber(int length) {
         return new RandomValueElementValueProvider(length, NUMBERS.toCharArray());
     }
 

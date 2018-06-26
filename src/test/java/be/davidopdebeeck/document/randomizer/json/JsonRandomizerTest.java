@@ -1,19 +1,9 @@
 package be.davidopdebeeck.document.randomizer.json;
 
-import be.davidopdebeeck.document.randomizer.Randomizers;
-import be.davidopdebeeck.document.randomizer.StringWrapper;
-import be.davidopdebeeck.document.randomizer.TestSpecification;
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
-import be.davidopdebeeck.document.randomizer.input.CompositeInputSource;
-import be.davidopdebeeck.document.randomizer.input.Input;
-import be.davidopdebeeck.document.randomizer.input.file.DirectoryInputSource;
-import be.davidopdebeeck.document.randomizer.input.file.FileInputSource;
-import be.davidopdebeeck.document.randomizer.input.iterable.IterableInputSource;
 import be.davidopdebeeck.document.randomizer.Randomizer;
 import be.davidopdebeeck.document.randomizer.Randomizers;
 import be.davidopdebeeck.document.randomizer.StringWrapper;
-import be.davidopdebeeck.document.randomizer.TestSpecification;
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
+import be.davidopdebeeck.document.randomizer.element.mapping.ElementValueMapping;
 import be.davidopdebeeck.document.randomizer.input.CompositeInputSource;
 import be.davidopdebeeck.document.randomizer.input.Input;
 import be.davidopdebeeck.document.randomizer.input.file.DirectoryInputSource;
@@ -26,11 +16,10 @@ import org.junit.Test;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 
-import static be.davidopdebeeck.document.randomizer.input.iterable.IterableInputSource.fromIterable;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonRandomizerTest {
@@ -39,10 +28,10 @@ public class JsonRandomizerTest {
 
     @Before
     public void setUp() {
-        TestSpecification testSpecification = new TestSpecification();
         randomizer = Randomizers.jsonRandomizer(
-                Arrays.asList(new ElementValueMapping.Builder<>(testSpecification)
+                singletonList(new ElementValueMapping.Builder()
                         .withXpath("$..name")
+                        .withElementValueProvider(() -> "test")
                         .build()));
     }
 

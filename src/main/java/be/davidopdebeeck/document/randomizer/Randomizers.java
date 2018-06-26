@@ -3,7 +3,7 @@ package be.davidopdebeeck.document.randomizer;
 import be.davidopdebeeck.document.randomizer.document.Document;
 import be.davidopdebeeck.document.randomizer.document.DocumentProcessingService;
 import be.davidopdebeeck.document.randomizer.document.DocumentProcessorFactory;
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
+import be.davidopdebeeck.document.randomizer.element.mapping.ElementValueMapping;
 import be.davidopdebeeck.document.randomizer.json.JsonDocument;
 import be.davidopdebeeck.document.randomizer.json.JsonDocumentFactory;
 import be.davidopdebeeck.document.randomizer.xml.XmlDocument;

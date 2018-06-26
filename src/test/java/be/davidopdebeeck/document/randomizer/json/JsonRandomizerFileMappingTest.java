@@ -1,14 +1,8 @@
 package be.davidopdebeeck.document.randomizer.json;
 
-import be.davidopdebeeck.document.randomizer.Randomizers;
-import be.davidopdebeeck.document.randomizer.element.provider.file.FileValuesElementValueMappingParameters;
-import be.davidopdebeeck.document.randomizer.element.provider.file.FileValuesElementValueProviderSpecification;
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
 import be.davidopdebeeck.document.randomizer.Randomizer;
 import be.davidopdebeeck.document.randomizer.Randomizers;
-import be.davidopdebeeck.document.randomizer.element.provider.file.FileValuesElementValueMappingParameters;
-import be.davidopdebeeck.document.randomizer.element.provider.file.FileValuesElementValueProviderSpecification;
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
+import be.davidopdebeeck.document.randomizer.element.mapping.ElementValueMapping;
 import io.reactivex.Flowable;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +10,9 @@ import org.junit.Test;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 
-import static java.util.Arrays.asList;
+import static be.davidopdebeeck.document.randomizer.element.provider.file.FileValuesSequentialElementValueProvider.sequentialValues;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonRandomizerFileMappingTest {
@@ -28,11 +22,10 @@ public class JsonRandomizerFileMappingTest {
     @Before
     public void setUp() throws URISyntaxException {
         URL mappingsFile = ClassLoader.getSystemResource("mappings.txt");
-        FileValuesElementValueProviderSpecification fileValuesSpecification = new FileValuesElementValueProviderSpecification();
         randomizer = Randomizers.jsonRandomizer(
-                Arrays.asList(new ElementValueMapping.Builder<>(fileValuesSpecification)
+                singletonList(new ElementValueMapping.Builder()
                         .withXpath("$..name")
-                        .withParameters(new FileValuesElementValueMappingParameters(new File(mappingsFile.toURI())))
+                        .withElementValueProvider(sequentialValues(new File(mappingsFile.toURI())))
                         .build()));
     }
 

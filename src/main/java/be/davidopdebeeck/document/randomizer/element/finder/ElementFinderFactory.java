@@ -1,7 +1,6 @@
 package be.davidopdebeeck.document.randomizer.element.finder;
 
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
-import be.davidopdebeeck.document.randomizer.element.provider.mapping.ElementValueMapping;
+import be.davidopdebeeck.document.randomizer.element.mapping.ElementValueMapping;
 
 public class ElementFinderFactory {
 
