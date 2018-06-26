@@ -2,8 +2,6 @@ package be.davidopdebeeck.document.randomizer.xml;
 
 import be.davidopdebeeck.document.randomizer.document.Document;
 import be.davidopdebeeck.document.randomizer.element.Element;
-import be.davidopdebeeck.document.randomizer.document.Document;
-import be.davidopdebeeck.document.randomizer.element.Element;
 import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;

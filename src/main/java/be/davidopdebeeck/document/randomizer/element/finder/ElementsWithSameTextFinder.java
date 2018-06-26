@@ -1,7 +1,6 @@
 package be.davidopdebeeck.document.randomizer.element.finder;
 
 import be.davidopdebeeck.document.randomizer.document.Document;
-import be.davidopdebeeck.document.randomizer.document.Document;
 import be.davidopdebeeck.document.randomizer.element.Element;
 import be.davidopdebeeck.document.randomizer.element.ElementGroup;
 

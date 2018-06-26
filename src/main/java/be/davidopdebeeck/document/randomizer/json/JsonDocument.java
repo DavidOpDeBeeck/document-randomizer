@@ -2,8 +2,6 @@ package be.davidopdebeeck.document.randomizer.json;
 
 import be.davidopdebeeck.document.randomizer.document.Document;
 import be.davidopdebeeck.document.randomizer.element.Element;
-import be.davidopdebeeck.document.randomizer.document.Document;
-import be.davidopdebeeck.document.randomizer.element.Element;
 import com.jayway.jsonpath.DocumentContext;
 import net.minidev.json.JSONArray;
 

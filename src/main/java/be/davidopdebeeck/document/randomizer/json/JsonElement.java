@@ -1,7 +1,6 @@
 package be.davidopdebeeck.document.randomizer.json;
 
 import be.davidopdebeeck.document.randomizer.element.Element;
-import be.davidopdebeeck.document.randomizer.element.Element;
 import com.jayway.jsonpath.DocumentContext;
 
 public class JsonElement implements Element {

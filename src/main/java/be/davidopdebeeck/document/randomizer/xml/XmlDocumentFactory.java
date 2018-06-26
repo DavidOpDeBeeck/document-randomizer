@@ -3,9 +3,6 @@ package be.davidopdebeeck.document.randomizer.xml;
 import be.davidopdebeeck.document.randomizer.document.DocumentFactory;
 import be.davidopdebeeck.document.randomizer.input.Input;
 import be.davidopdebeeck.document.randomizer.input.InputSource;
-import be.davidopdebeeck.document.randomizer.document.DocumentFactory;
-import be.davidopdebeeck.document.randomizer.input.Input;
-import be.davidopdebeeck.document.randomizer.input.InputSource;
 import io.reactivex.Flowable;
 import org.dom4j.io.SAXReader;
 
