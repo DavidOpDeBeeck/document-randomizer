@@ -1,4 +1,6 @@
-## Gradle
+## Project Usage
+
+### Gradle
 
 ```groovy
 repositories {
@@ -16,9 +18,9 @@ dependencies {
 
 The purpose of this library is to provide an easy way to "randomize" fields in a XML or JSON document. A perfect use case would be the anonymization of production data used in development environments.
 
-## Usage
+## Library Usage
 
-The randomizer can be configured with _element mappings_ and _element value specifications_.
+The randomizer can be configured with _element mappings_ and _element value providers_.
 
 #### Element mappings
 
@@ -27,17 +29,18 @@ An element mapping specifies which elements in the document will be randomized a
 - __xpath__: specifies which elements will be selected
 - __unique__: specifies if the new element value needs to be unique (unique in this mapping and all the other documents)
 - __groupNodesWithSameText__: specifies if nodes with the same value are given the same new element value
-- __specification__: specifies how the new element value is generated
-- __parameters__: specifies extra parameters for the specification
+- __value provider__: specifies how the new element value is generated
 
-#### Element value specifications
+#### Element value providers
 
-Specifications define how the new element values are generated. The following specifications are supplied by the library.
+Providers define how the new element values are generated. The following providers are supplied by the library.
 
-- __RandomNumberElementValueProviderSpecification__
-- __RandomNumberBetweenElementValueProviderSpecification__
-- __RandomStringElementValueProviderSpecification__
-- __FileValuesElementValueProviderSpecification__
+- __RandomNumberBetweenElementValueProvider__
+- __RandomValueElementValueProvider__
+- __FileValuesRandomElementValueProvider__
+- __FileValuesSequentialElementValueProvider__
+- __CollectionRandomElementValueProvider__
+- __CollectionSequentialElementValueProvider__
 
 ## Example
 
@@ -56,16 +59,17 @@ Specifications define how the new element values are generated. The following sp
 class Example {
     
     public static void main(String[] args){
-        Randomizer<XmlDocument> randomizer = createRandomizer();
+        Randomizer randomizer = createXmlRandomizer();
         
         randomizer.randomize(new FileInputSource(new File("path/to/xml/file.xml")))
             .subscribe(System.out::println);
     }
     
-    private static Randomizer<XmlDocument> createRandomizer() {
+    private static Randomizer createXmlRandomizer() {
         return Randomizers.xmlRandomizer(
-                asList(new ElementValueMapping.Builder<>(new RandomStringElementValueProviderSpecification())
+                asList(new ElementValueMapping.Builder()
                         .withXpath("//*[local-name() = 'name']")
+                        .withElementValueProvider(randomString(10))
                         .build()));
     }
 }
