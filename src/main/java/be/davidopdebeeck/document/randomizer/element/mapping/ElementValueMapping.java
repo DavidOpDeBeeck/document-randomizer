@@ -3,6 +3,7 @@ package be.davidopdebeeck.document.randomizer.element.mapping;
 import be.davidopdebeeck.document.randomizer.element.provider.ElementValueProvider;
 import be.davidopdebeeck.document.randomizer.element.provider.UniqueElementValueProvider;
 
+import static be.davidopdebeeck.document.randomizer.element.provider.UniqueElementValueProvider.onlyUniqueValues;
 import static java.util.Objects.requireNonNull;
 
 public class ElementValueMapping {
@@ -65,7 +66,7 @@ public class ElementValueMapping {
         }
 
         private ElementValueProvider elementValueProvider() {
-            return unique ? new UniqueElementValueProvider(elementValueProvider) : elementValueProvider;
+            return unique ? onlyUniqueValues(elementValueProvider) : elementValueProvider;
         }
     }
 }

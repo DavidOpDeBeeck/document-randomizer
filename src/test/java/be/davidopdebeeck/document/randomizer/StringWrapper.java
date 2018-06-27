@@ -11,4 +11,9 @@ public class StringWrapper {
     public String getContent() {
         return content;
     }
+
+    @Override
+    public String toString() {
+        return content;
+    }
 }
