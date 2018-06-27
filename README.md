@@ -4,9 +4,7 @@
 
 ```groovy
 repositories {
-    maven {
-        url  "https://dl.bintray.com/davidopdebeeck/open-source" 
-    }
+    jcenter()
 }
 
 dependencies {
