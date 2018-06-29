@@ -21,6 +21,10 @@ public class FileInput implements Input {
         this.file = file;
     }
 
+    public File getFile() {
+        return file;
+    }
+
     @Override
     public String getContent() {
         try (Stream<String> lines = Files.lines(file.toPath(), defaultCharset())) {

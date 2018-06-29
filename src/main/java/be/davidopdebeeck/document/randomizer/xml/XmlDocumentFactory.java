@@ -2,8 +2,6 @@ package be.davidopdebeeck.document.randomizer.xml;
 
 import be.davidopdebeeck.document.randomizer.document.DocumentFactory;
 import be.davidopdebeeck.document.randomizer.input.Input;
-import be.davidopdebeeck.document.randomizer.input.InputSource;
-import io.reactivex.Flowable;
 import org.dom4j.io.SAXReader;
 
 import java.io.StringReader;
@@ -19,8 +17,8 @@ public class XmlDocumentFactory implements DocumentFactory<XmlDocument> {
     }
 
     @Override
-    public Flowable<XmlDocument> createDocument(InputSource<?> source) {
-        return source.getSource().map(this::mapToXmlDocument);
+    public <I extends Input> XmlDocument createDocument(I input) {
+        return mapToXmlDocument(input);
     }
 
     private XmlDocument mapToXmlDocument(Input input) {

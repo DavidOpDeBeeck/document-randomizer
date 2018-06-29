@@ -1,9 +1,8 @@
 package be.davidopdebeeck.document.randomizer.document;
 
-import be.davidopdebeeck.document.randomizer.input.InputSource;
-import io.reactivex.Flowable;
+import be.davidopdebeeck.document.randomizer.input.Input;
 
 public interface DocumentFactory<D extends Document> {
 
-    Flowable<D> createDocument(InputSource<?> source);
+    <I extends Input> D createDocument(I input);
 }
